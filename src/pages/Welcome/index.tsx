@@ -26,7 +26,7 @@ export const Welcome: React.FC = () => {
 
 				<Text>
 					{
-						'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam eveniet sit provident suscipit distinctio consequuntur impedit quos, id deleniti nisi voluptate ea laboriosam aliquam. Temporibus exercitationem non sequi debitis qui.'
+						'Cururupu é um município do estado do Maranhão, no Brasil. Sua população era de 30.805 habitantes conforme estimativa IBGE de 2016. O município é sede da Região de Planejamento do Litoral Ocidental (Lei Complementar 108/2007), sendo centro regional de outros oito municípios.'
 					}
 				</Text>
 
