@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+export const ButtonContainer = styled.TouchableOpacity.attrs({})``;
+
 export const Container = styled.ImageBackground`
 	width: ${RFValue(140)}px;
 	height: ${RFValue(140)}px;

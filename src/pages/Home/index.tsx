@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Image, ListRenderItem } from 'react-native';
+import { Image, FlatList, ImageSourcePropType } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 
-import cais from '../../assets/images/cais.png';
-import rodoviaria from '../../assets/images/rodoviaria.png';
-import praca from '../../assets/images/praca.png';
+import locationsList from '../../utils/locationsList';
 
 import { LocationBox } from '../../components/LocationBox';
 import { LocationBoxLarge } from '../../components/LocationBoxLarge';
@@ -21,38 +20,25 @@ import {
 	PlaceSectionContent,
 	SectionTitle,
 	HorizontalScrollContent,
-	VerticalScrollContainer,
-	VerticalScrollContent,
 } from './styles';
 
-interface ItemTeste {
+interface LocationProps {
 	id: number;
 	title: string;
-	image: string;
+	description: string;
+	images: ImageSourcePropType[];
 }
 
 export const Home: React.FC = () => {
+	const { navigate } = useNavigation();
 	const { colors } = useTheme();
 
-	const [arrayParaLoop] = useState<ItemTeste[]>([
-		{
-			id: 1,
-			title: 'Cais',
-			image: Image.resolveAssetSource(cais).uri,
-		},
+	const [locationsDefault] = useState<LocationProps[]>(locationsList);
+	const [locationsRecomended] = useState<LocationProps[]>(locationsList);
 
-		{
-			id: 2,
-			title: 'Praça',
-			image: Image.resolveAssetSource(praca).uri,
-		},
-
-		{
-			id: 3,
-			title: 'Rodoviária',
-			image: Image.resolveAssetSource(rodoviaria).uri,
-		},
-	]);
+	function goToLocationInfoPage(location: LocationProps) {
+		navigate('LocationInfo', location);
+	}
 
 	return (
 		<Container>
@@ -70,14 +56,14 @@ export const Home: React.FC = () => {
 					<SectionTitle>{'Lugares'}</SectionTitle>
 
 					<HorizontalScrollContent>
-						{arrayParaLoop.map(item => (
+						{locationsDefault.map(item => (
 							<LocationBox
 								key={String(item.id)}
-								title={item.title}
-								bgImage={item.image}
+								location={item}
 								style={
-									item.id !== arrayParaLoop.length ? { marginRight: 14 } : {}
+									item.id !== locationsDefault.length ? { marginRight: 14 } : {}
 								}
+								onPress={() => goToLocationInfoPage(item)}
 							/>
 						))}
 					</HorizontalScrollContent>
@@ -85,18 +71,25 @@ export const Home: React.FC = () => {
 
 				<SectionTitle>{'Recomendado'}</SectionTitle>
 
-				<VerticalScrollContent
-					data={arrayParaLoop}
-					keyExtractor={(item, index) => String(index)}
-					renderItem={({ item }: { item: ItemTeste }) => (
+				<FlatList
+					data={locationsRecomended}
+					keyExtractor={item => String(item.id)}
+					renderItem={({ item }) => (
 						<LocationBoxLarge
-							title={item.title}
-							bgImage={item.image}
+							location={item}
 							style={
-								item.id !== arrayParaLoop.length ? { marginBottom: 14 } : {}
+								item.id !== locationsRecomended.length
+									? { marginBottom: 14 }
+									: {}
 							}
+							onPress={() => goToLocationInfoPage(item)}
 						/>
 					)}
+					contentContainerStyle={{
+						paddingHorizontal: RFValue(24),
+						paddingBottom: RFValue(24),
+					}}
+					showsVerticalScrollIndicator={false}
 				/>
 			</Content>
 		</Container>

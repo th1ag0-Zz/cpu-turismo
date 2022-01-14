@@ -2,12 +2,6 @@ import { StatusBar, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-interface ItemTeste {
-	id: number;
-	title: string;
-	image: string;
-}
-
 export const Container = styled.View`
 	background-color: ${({ theme }) => theme.colors.shape_bg};
 	flex: 1;
@@ -80,16 +74,4 @@ export const HorizontalScrollContent = styled.ScrollView.attrs({
 	showsHorizontalScrollIndicator: false,
 })`
 	margin-bottom: ${RFValue(24)}px;
-`;
-
-export const VerticalScrollContainer = styled.View``;
-
-export const VerticalScrollContent = styled.FlatList.attrs({
-	contentContainerStyle: {
-		paddingHorizontal: RFValue(24),
-		paddingBottom: RFValue(24),
-	},
-	showsVerticalScrollIndicator: false,
-})`
-	flex: 1;
 `;

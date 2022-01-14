@@ -13,7 +13,7 @@ import {
 } from './styles';
 
 export const Welcome: React.FC = () => {
-	const { navigate } = useNavigation<any>();
+	const { navigate } = useNavigation();
 
 	function handleGoToHomePage() {
 		navigate('Home');
